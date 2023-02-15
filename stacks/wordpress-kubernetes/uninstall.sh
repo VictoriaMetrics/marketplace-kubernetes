@@ -5,9 +5,11 @@ set -e
 ################################################################################
 # chart
 ################################################################################
-STACK="{{STACK_NAME}}"
-NAMESPACE="{{NAMESPACE}}"
+STACK="wordpress-kubernetes"
+NAMESPACE="wordpress"
 
 
 helm uninstall "$STACK" \
   --namespace "$NAMESPACE"
+
+kubectl delete ns "$NAMESPACE"

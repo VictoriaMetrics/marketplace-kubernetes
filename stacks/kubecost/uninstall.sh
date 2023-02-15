@@ -5,8 +5,8 @@ set -e
 ################################################################################
 # chart
 ################################################################################
-STACK="{{STACK_NAME}}"
-NAMESPACE="{{NAMESPACE}}"
+STACK="kubecost"
+NAMESPACE="kubecost"
 
 
 helm uninstall "$STACK" \

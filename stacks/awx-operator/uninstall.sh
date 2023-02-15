@@ -5,11 +5,9 @@ set -e
 ################################################################################
 # chart
 ################################################################################
-STACK="wordpress"
-NAMESPACE="wordpress"
+STACK="awx-operator"
+NAMESPACE="awx"
 
 
 helm uninstall "$STACK" \
   --namespace "$NAMESPACE"
-
-kubectl delete ns "$NAMESPACE"

@@ -5,30 +5,31 @@ set -e
 ################################################################################
 # repo
 ################################################################################
-helm repo add netdata https://netdata.github.io/helmchart
+helm repo add sosivio https://helm.sosiv.io
 helm repo update > /dev/null
 
 ################################################################################
 # chart
 ################################################################################
-STACK="netdata"
-CHART="netdata/netdata"
-CHART_VERSION="3.7.29"
-NAMESPACE="netdata"
+STACK="sosivio"
+CHART="sosivio/sosivio"
+CHART_VERSION="1.5.2"
+NAMESPACE="sosivio"
 
 if [ -z "${MP_KUBERNETES}" ]; then
   # use local version of values.yml
   ROOT_DIR=$(git rev-parse --show-toplevel)
-  values="$ROOT_DIR/stacks/netdata/values.yml"
+  values="$ROOT_DIR/stacks/sosivio/values.yml"
 else
   # use github hosted master version of values.yml
-  values="https://raw.githubusercontent.com/digitalocean/marketplace-kubernetes/master/stacks/netdata/values.yml"
+  values="https://raw.githubusercontent.com/digitalocean/marketplace-kubernetes/master/stacks/sosivio/values.yml"
 fi
 
 helm upgrade "$STACK" "$CHART" \
   --atomic \
   --create-namespace \
   --install \
+  --timeout 8m0s \
   --namespace "$NAMESPACE" \
-  --values "$values" \
-  --version "$CHART_VERSION"
+  --version "$CHART_VERSION" \
+  --set expose=PortForward
